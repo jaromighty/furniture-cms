@@ -1,0 +1,139 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap');
+
+// Tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Progress Bar
+.opaque {
+    opacity: 0;
+    transition: .3s ease;
+}
+.disabled {
+    opacity: .4;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+#progress {
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: 4px;
+        width: 100%;
+        background-color: #ccc;
+        border-radius: 1rem;
+        transform: translateY(-50%) perspective(1000px);
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: 4px;
+        width: 100%;
+        background-color: #004D80;
+        border-radius: 1rem;
+        transform: scaleX(.07) translateY(-50%) perspective(1000px);
+        transform-origin: left center;
+        transition: transform .5s ease;
+    }
+    &.designing:after {
+        transform: scaleX(.065) translateY(-50%) perspective(1000px);
+    }
+    &.woodcutting:after {
+        transform: scaleX(.19) translateY(-50%) perspective(1000px);
+    }
+    &.drilling:after {
+        transform: scaleX(.315) translateY(-50%) perspective(1000px);
+    }
+    &.assembling:after {
+        transform: scaleX(.44) translateY(-50%) perspective(1000px);
+    }
+    &.sanding:after {
+        transform: scaleX(.565) translateY(-50%) perspective(1000px);
+    }
+    &.inspecting:after {
+        transform: scaleX(.685) translateY(-50%) perspective(1000px);
+    }
+    &.complete:after {
+        transform: scaleX(.88) translateY(-50%) perspective(1000px);
+    }
+    &.delivered:after {
+        transform: scaleX(1) translateY(-50%) perspective(1000px);
+    }
+    .progress-bar {
+        .step {
+            .step-label {
+                top: 8px;
+                left: 50%;
+                transform: translateX(-50%) perspective(1000px);
+                transition: .3s ease;
+            }
+            span {
+                color: #ccc;
+                transition: .3s ease;
+                display: block;
+                transform: translate3d(0,0,0) scale(1) perspective(1000px);
+            }
+            .check {
+                color: #fff;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transition: transform .3s ease;
+                transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
+            }
+            &.active {
+                span, .step-label {
+                    color: #004D80;
+                }
+            }
+            &.valid {
+                .check {
+                    transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
+                }
+                span {
+                    color: #004D80;
+                    transform: translate3d(0,0,0) scale(2) perspective(1000px);
+                }
+                .step-label {
+                    color: #004D80 !important;
+
+                }
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%) perspective(1000px);
+                width: 12px;
+                height: 12px;
+                background-color: #fff;
+                border-radius: 50%;
+                border: 2px solid #ccc;
+                transition: .3s ease;
+            }
+            &.active:after {
+                border: 3px solid #004D80;
+            }
+            &.valid:after {
+                background-color: #004D80;
+                border: 3px solid #004D80;
+            }
+        }
+    }
+}
+
+.spin {
+    animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
